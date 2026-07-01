@@ -20,6 +20,8 @@ import { XiaomiTokenplanExecutor } from "./xiaomi-tokenplan.js";
 import { MimoFreeExecutor } from "./mimo-free.js";
 import { CodeBuddyExecutor } from "./codebuddy-cn.js";
 import { DefaultExecutor } from "./default.js";
+import { ClinepassExecutor } from "./clinepass.js";
+
 
 const executors = {
   antigravity: new AntigravityExecutor(),
@@ -46,6 +48,8 @@ const executors = {
   "mimo-free": new MimoFreeExecutor(),
   mmf: new MimoFreeExecutor(), // Alias for mimo-free
   "codebuddy-cn": new CodeBuddyExecutor(),
+  clinepass: new ClinepassExecutor(),
+  cp: new ClinepassExecutor(),
 };
 
 const defaultCache = new Map();

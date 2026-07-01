@@ -369,6 +369,7 @@ export async function POST(request) {
         case "chutes":
         case "xiaomi-mimo":
         case "xiaomi-tokenplan":
+        case "clinepass":
         case "nvidia": {
           const endpoints = {
             ...Object.fromEntries(
@@ -384,6 +385,8 @@ export async function POST(request) {
           // xai returns 400 for bad key, 403 for valid-but-no-credit. Other providers use 401.
           if (provider === "xai") {
             isValid = res.status === 200 || res.status === 403;
+          } else if (provider === "clinepass") {
+            isValid = res.status !== 401 && res.status !== 403;
           } else {
             isValid = res.ok;
           }
