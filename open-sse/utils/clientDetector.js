@@ -55,8 +55,8 @@ export function isNativePassthrough(clientTool, provider) {
   if (!clientTool) return false;
   const nativeProviders = NATIVE_PAIRS[clientTool];
   if (!nativeProviders) return false;
-  // Support anthropic-compatible-* variants
-  const normalizedProvider = provider.startsWith("anthropic-compatible")
+  // Support anthropic-compatible-* variants and agentrouter
+  const normalizedProvider = (provider.startsWith("anthropic-compatible") || provider === "agentrouter")
     ? "anthropic"
     : provider;
   return nativeProviders.includes(normalizedProvider);

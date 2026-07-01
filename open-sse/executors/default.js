@@ -1,6 +1,6 @@
 import { BaseExecutor } from "./base.js";
 import { PROVIDERS, PROVIDER_OAUTH } from "../config/providers.js";
-import { ANTHROPIC_API_VERSION, OPENAI_COMPAT_BASE, ANTHROPIC_COMPAT_BASE } from "../providers/shared.js";
+import { ANTHROPIC_API_VERSION, OPENAI_COMPAT_BASE, ANTHROPIC_COMPAT_BASE, CLAUDE_CLI_SPOOF_HEADERS } from "../providers/shared.js";
 import { OAUTH_ENDPOINTS, buildKimiHeaders } from "../config/appConstants.js";
 import { buildClineHeaders } from "../shared/clineAuth.js";
 import { getCachedClaudeHeaders } from "../utils/claudeHeaderCache.js";
@@ -44,6 +44,22 @@ const HEADER_HOOKS = {
   clineHeaders: (h, c) => Object.assign(h, buildClineHeaders(c.apiKey || c.accessToken)),
   kilocodeOrg: (h, c) => { if (c.providerSpecificData?.orgId) h["X-Kilocode-OrganizationID"] = c.providerSpecificData.orgId; },
   claudeOverlay: (h) => {
+    const cached = getCachedClaudeHeaders();
+    if (!cached) return;
+    for (const lcKey of Object.keys(cached)) {
+      const titleKey = lcKey.replace(/(^|-)([a-z])/g, (_, sep, ch) => sep + ch.toUpperCase());
+      if (lcKey === "anthropic-beta") {
+        const staticBetaStr = h[titleKey] || h[lcKey] || "";
+        const flags = new Set(staticBetaStr.split(",").map(f => f.trim()).filter(Boolean));
+        for (const f of cached[lcKey].split(",").map(f => f.trim()).filter(Boolean)) flags.add(f);
+        cached[lcKey] = Array.from(flags).join(",");
+      }
+      if (titleKey !== lcKey && h[titleKey] !== undefined) delete h[titleKey];
+    }
+    Object.assign(h, cached);
+  },
+  agentrouterOverlay: (h) => {
+    Object.assign(h, CLAUDE_CLI_SPOOF_HEADERS);
     const cached = getCachedClaudeHeaders();
     if (!cached) return;
     for (const lcKey of Object.keys(cached)) {
