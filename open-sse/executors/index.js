@@ -21,6 +21,7 @@ import { MimoFreeExecutor } from "./mimo-free.js";
 import { CodeBuddyExecutor } from "./codebuddy-cn.js";
 import { DefaultExecutor } from "./default.js";
 import { ClinepassExecutor } from "./clinepass.js";
+import { TtapiExecutor } from "./ttapi.js";
 
 
 const executors = {
@@ -50,6 +51,7 @@ const executors = {
   "codebuddy-cn": new CodeBuddyExecutor(),
   clinepass: new ClinepassExecutor(),
   cp: new ClinepassExecutor(),
+  ttapi: new TtapiExecutor(),
 };
 
 const defaultCache = new Map();

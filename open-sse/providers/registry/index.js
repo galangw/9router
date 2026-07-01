@@ -96,6 +96,7 @@ import p93 from "./xiaomi-mimo.js";
 import p94 from "./xiaomi-tokenplan.js";
 import p95 from "./youcom.js";
 import p96 from "./clinepass.js";
+import p97 from "./ttapi.js";
 
 export default [
   p0,
@@ -194,5 +195,6 @@ export default [
   p93,
   p94,
   p95,
-  p96
+  p96,
+  p97
 ];

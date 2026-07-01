@@ -1,0 +1,56 @@
+export default {
+  id: "ttapi",
+  priority: 75,
+  alias: "ttapi",
+  display: {
+    name: "TTAPI OpenAI & Grok",
+    icon: "bolt",
+    color: "#6366F1",
+    textIcon: "TT",
+    website: "https://ttapi.io",
+    notice: {
+      text: "OpenAI (20% off) & Grok (50% off) via TTAPI gateway.",
+      apiKeyUrl: "https://dashboard.ttapi.io/",
+      signupUrl: "https://ttapi.io",
+    },
+  },
+  category: "apikey",
+  transport: {
+    baseUrl: "https://api.ttapi.io/v1/chat/completions",
+    // TTAPI uses TT-API-KEY header instead of standard Bearer
+    auth: {
+      combined: true,
+      header: "TT-API-KEY",
+      scheme: "raw",
+    },
+  },
+  models: [
+    // OpenAI models — 20% off official pricing
+    { id: "gpt-5",                    name: "GPT-5" },
+    { id: "gpt-5-mini",               name: "GPT-5 Mini" },
+    { id: "gpt-5-nano",               name: "GPT-5 Nano" },
+    { id: "gpt-5-chat-latest",        name: "GPT-5 Chat Latest" },
+    { id: "gpt-5.1",                  name: "GPT-5.1" },
+    { id: "gpt-5.2",                  name: "GPT-5.2" },
+    { id: "gpt-5.4-mini",             name: "GPT-5.4 Mini" },
+    { id: "gpt-5.4-nano",             name: "GPT-5.4 Nano" },
+    { id: "gpt-5.5",                  name: "GPT-5.5" },
+    { id: "gpt-4.1",                  name: "GPT-4.1" },
+    { id: "gpt-4.1-mini",             name: "GPT-4.1 Mini" },
+    { id: "gpt-4o",                   name: "GPT-4o" },
+    { id: "gpt-4o-mini",              name: "GPT-4o Mini" },
+    { id: "o1",                       name: "o1" },
+    { id: "o3-mini",                  name: "o3-mini" },
+    // Grok models — 50% off official pricing
+    { id: "grok-4",                       name: "Grok 4" },
+    { id: "grok-4-fast",                  name: "Grok 4 Fast" },
+    { id: "grok-4-1-fast-reasoning",      name: "Grok 4.1 Fast Reasoning" },
+    { id: "grok-4-1-fast-non-reasoning",  name: "Grok 4.1 Fast Non-Reasoning" },
+    { id: "grok-3",                       name: "Grok 3" },
+    { id: "grok-3-fast",                  name: "Grok 3 Fast" },
+    { id: "grok-3-mini",                  name: "Grok 3 Mini" },
+    { id: "grok-3-mini-fast",             name: "Grok 3 Mini Fast" },
+  ],
+  passthroughModels: true,
+  serviceKinds: ["llm"],
+};
